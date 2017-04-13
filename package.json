@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "Javascript microservice abstraction layer: comunication based on Jesus + Schema Manager",
   "author": "",
-  "main": "start.js",
+  "main": "service.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/giorgio-casciaro/base-microservice.git"
