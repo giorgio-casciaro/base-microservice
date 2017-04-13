@@ -1,4 +1,4 @@
-
+var path=require('path')
 if (!global._babelPolyfill)require('babel-polyfill')
 var SERVICE = require('./service')({
   configFile: path.join(__dirname, './domain/config'),
