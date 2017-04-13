@@ -15,7 +15,7 @@ function getNetConfig (number) {
   }
 }
 var SERVICE1UpdateSchema = () => {
-  var config = require('./domain/config')
+  var config = require('./domain/schema')
   config.net = getNetConfig(1)
   return config
 }
@@ -23,13 +23,14 @@ var SERVICE1 = require('../service')({
   serviceName: 'SERVICE1',
   serviceId: 'SERVICE1',
   configFile: path.join(__dirname, './domain/config'),
+  schemaFile: path.join(__dirname, './domain/schema'),
   methodsFile: path.join(__dirname, './domain/methods'),
   netConfigFile: path.join(__dirname, './domain/net.json'),
   schemaPath: path.join(__dirname, './schema')
 }, SERVICE1UpdateSchema)
 
 var SERVICE2UpdateSchema = () => {
-  var config = require('./domain/config')
+  var config = require('./domain/schema')
   config.net = getNetConfig(2)
   return config
 }
@@ -37,13 +38,14 @@ var SERVICE2 = require('../service')({
   serviceName: 'SERVICE2',
   serviceId: 'SERVICE2',
   configFile: path.join(__dirname, './domain/config'),
+  schemaFile: path.join(__dirname, './domain/schema'),
   methodsFile: path.join(__dirname, './domain/methods'),
   netConfigFile: path.join(__dirname, './domain/net.json'),
   schemaPath: path.join(__dirname, './schema')
 }, SERVICE2UpdateSchema)
 
 var SERVICE3UpdateSchema = () => {
-  var config = require('./domain/config')
+  var config = require('./domain/schema')
   config.net = getNetConfig(3)
   return config
 }
@@ -51,6 +53,7 @@ var SERVICE3 = require('../service')({
   serviceName: 'SERVICE3',
   serviceId: 'SERVICE3',
   configFile: path.join(__dirname, './domain/config'),
+  schemaFile: path.join(__dirname, './domain/schema'),
   methodsFile: path.join(__dirname, './domain/methods'),
   netConfigFile: path.join(__dirname, './domain/net.json'),
   schemaPath: path.join(__dirname, './schema')

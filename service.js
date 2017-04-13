@@ -1,3 +1,4 @@
+if (!global._babelPolyfill)require('babel-polyfill')
 var jesusServer = require('sint-bit-jesus/net.server')
 var jesusClient = require('sint-bit-jesus/net.client')
 var schemaManager = require('sint-bit-schema-manager')
@@ -8,22 +9,19 @@ var PACKAGE = 'microservice'
 var CONSOLE = getConsole(PACKAGE, '----', '-----')
 
 module.exports = function getService (CONFIG = {}, updateSchema) {
-
   if (!updateSchema) {
     updateSchema = () => {
-      var config = require(CONFIG.configFile)
+      var config = require(CONFIG.schemaFile)
       config.net = require(CONFIG.netConfigFile)
       return config
     }
   }
 
-  var domainConfig = require(CONFIG.configFile)
-  var schemaConnection = schemaManager({updateSchema, savePath: CONFIG.schemaPath || domainConfig.schemaPath, serviceName: CONFIG.serviceName || domainConfig.serviceName, intervall: 1000, defaultField: 'methods'})
+  var schemaConnection = schemaManager({updateSchema, savePath: CONFIG.schemaPath, serviceName: CONFIG.serviceName, intervall: 1000, defaultField: 'methods'})
   var getMethods = () => require(CONFIG.methodsFile)(CONSOLE, netClient)
 
   CONFIG = Object.assign({
-    serviceName: domainConfig.serviceName,
-    serviceId: domainConfig.serviceId || generateId(),
+    serviceId: generateId(),
     CONSOLE,
     getMethods,
     getMethodsConfig: (service, exclude) => schemaConnection.get(),
@@ -32,7 +30,7 @@ module.exports = function getService (CONFIG = {}, updateSchema) {
     getEventsOut: (service, exclude) => schemaConnection.get('eventsOut', service, exclude),
     getRpcOut: (service, exclude) => schemaConnection.get('rpcOut', service, exclude)
   }, CONFIG)
-  
+
   var netClient = jesusClient(CONFIG)
   return {
     CONFIG,

@@ -1,9 +1,8 @@
-var path=require('path')
-if (!global._babelPolyfill)require('babel-polyfill')
+var path = require('path')
 var SERVICE = require('./service')({
   configFile: path.join(__dirname, './domain/config'),
   methodsFile: path.join(__dirname, './domain/methods'),
   netConfigFile: path.join(__dirname, './domain/net.json'),
-  schemaPath: path.join(__dirname, './schema')
+  schemaFile: path.join(__dirname, './domain/schema')
 })
 SERVICE.netServer.start()
