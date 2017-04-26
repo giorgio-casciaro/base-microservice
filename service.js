@@ -24,7 +24,7 @@ module.exports = function getService (CONFIG = {}, updateSchema) {
     serviceId: generateId(),
     CONSOLE,
     getMethods,
-    getMethodsConfig: (service, exclude) => schemaConnection.get(),
+    getMethodsConfig: (service, exclude) => schemaConnection.get('methods', service),
     getNetConfig: (service, exclude) => schemaConnection.get('net', service, exclude),
     getEventsIn: (service, exclude) => schemaConnection.get('eventsIn', service, exclude),
     getEventsOut: (service, exclude) => schemaConnection.get('eventsOut', service, exclude),
