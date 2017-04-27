@@ -1,4 +1,3 @@
-if (!global._babelPolyfill)require('babel-polyfill')
 var jesusServer = require('sint-bit-jesus/net.server')
 var jesusClient = require('sint-bit-jesus/net.client')
 var schemaManager = require('sint-bit-schema-manager')

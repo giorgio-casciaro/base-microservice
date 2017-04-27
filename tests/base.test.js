@@ -1,6 +1,6 @@
+
 var t = require('tap')
 var path = require('path')
-var co = require('co')
 var CONSOLE = require('../utils').getConsole({debug: true, log: true, error: true, warn: true}, 'BASE TEST', '----', '-----')
 
 function getNetConfig (number) {
@@ -59,34 +59,34 @@ var SERVICE3 = require('../service')({
 
 t.test('*** SERVICE1S NET ***', {
 //  autoend: true
-}, co.wrap(function*(t) {
+}, async function mainTest (t) {
   t.plan(1)
 
   CONSOLE.debug('----------------- TEST 1 - START SERVERS -----------------')
-  yield t.test('START SERVERS', co.wrap(function*(t) {
-    yield SERVICE1.netServer.start()
-    yield SERVICE2.netServer.start()
-    yield SERVICE3.netServer.start()
+  await t.test('START SERVERS', async function (t) {
+    await SERVICE1.netServer.start()
+    await SERVICE2.netServer.start()
+    await SERVICE3.netServer.start()
 
-    yield new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
     CONSOLE.debug('----------------- testRpc -----------------')
-    var testRpc = yield SERVICE1.netClient.rpc('testRpc', {testsed: 'testsend'})
+    var testRpc = await SERVICE1.netClient.rpc('testRpc', {testsed: 'testsend'})
     t.same(testRpc, {testsed: 'testsend'}, 'rpc testRpc echo test')
 
-    yield new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
     CONSOLE.debug('----------------- testEvent -----------------')
-    var testEmit = yield SERVICE1.netClient.emit('testEvent', {testsed: 'testsend'})
+    var testEmit = await SERVICE1.netClient.emit('testEvent', {testsed: 'testsend'})
     t.same(testEmit, {testsed: 'testsend'}, 'emit testEvent echo test')
 
-    yield new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
     CONSOLE.debug('----------------- testEventMulti -----------------')
-    var testEmitMulti = yield SERVICE1.netClient.emit('testEventMulti', {testsed: 'testsend'})
+    var testEmitMulti = await SERVICE1.netClient.emit('testEventMulti', {testsed: 'testsend'})
     t.same(testEmitMulti, [{testsed: 'testsend'}, {testsed: 'testsend'}], 'emit testEventMulti echo test')
 
     t.end()
-  }))
+  })
   t.end()
-})).then(() => process.exit())
+}).then(() => process.exit())
