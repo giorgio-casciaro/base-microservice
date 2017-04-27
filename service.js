@@ -11,6 +11,7 @@ module.exports = function getService (CONFIG = {}, updateSchema) {
   if (!updateSchema) {
     updateSchema = () => {
       var config = require(CONFIG.schemaFile)
+      config.net = require(CONFIG.configFile).net
       return config
     }
   }
